@@ -30,7 +30,7 @@ export const HeroSectionSkeleton = () => (
 );
 
 export const SectionSkeleton = () => (
-  <div className="space-y-4">
+  <div className="space-y-4 pt-5">
     <Skeleton className="h-6 w-48" />
     <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
       {Array.from({ length: 5 }).map((_, i) => (
