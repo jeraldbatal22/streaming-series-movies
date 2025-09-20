@@ -19,12 +19,16 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import HERO_MOCK_DATA from '@/mock/hero-data';
+import { tmdbService } from '@/lib/api/tmdb';
+import { I_MOVIE } from '@/lib/api/types';
 
-const HeroSection = () => {
-  const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+interface HeroSectionProps {
+  data: I_MOVIE[];
+}
+
+const HeroSection = ({ data }: HeroSectionProps) => {
+  const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   return (
     <Carousel
@@ -37,9 +41,14 @@ const HeroSection = () => {
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-        {HERO_MOCK_DATA.map((data) => {
+        {data.map((item: any) => {
+          const isTruncated = item?.overview.length > 200;
+          const truncatedDescription = isTruncated
+            ? item?.overview.slice(0, 200) + '...'
+            : item?.overview;
+
           return (
-            <Fragment key={data.id}>
+            <Fragment key={item.id}>
               <CarouselItem className="basis-2/2">
                 <div
                   className={cn(
@@ -48,11 +57,11 @@ const HeroSection = () => {
                 >
                   {/* Background Image */}
                   <Image
-                    src="https://dummyimage.com/950x391/575757/615e61.svg&text="
-                    alt={data.coverImageUrl}
+                    src={tmdbService.getBackdropUrl(item.backdrop_path, 'w780')}
+                    alt={item.title}
                     fill
                     className={cn(
-                      'object-cover transition-all duration-300 ease-in-out'
+                      'object-fill transition-all duration-300 ease-in-out'
                     )}
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 100vw"
                     priority={false}
@@ -62,30 +71,25 @@ const HeroSection = () => {
                   <Card className="absolute bottom-0 left-0 z-2 mx-2 my-2 w-[calc(100%-1rem)] bg-[#0000008e] text-gray-100 md:mx-6 md:my-4 md:w-[405px]">
                     <CardHeader className="pb-2 md:pb-4">
                       <Label className="text-lg md:text-2xl">
-                        Game of Thrones
+                        {item.title}
                       </Label>
                       <div className="flex h-4 items-center space-x-2 text-xs md:h-5 md:space-x-4 md:text-sm">
                         <div>9.2</div>
                         <div>Action</div>
-                        <Separator
-                          orientation="vertical"
-                          className="h-3 md:h-4"
-                        />
-                        <div>Adventure</div>
-                        <Separator
-                          orientation="vertical"
-                          className="h-3 md:h-4"
-                        />
-                        <div>Drama</div>
+                        <div className="flex flex-wrap items-center gap-1 md:gap-3">
+                          {item.genre_names?.map((genre: string) => {
+                            return (
+                              <Fragment key={genre}>
+                                |<div>{genre}</div>
+                              </Fragment>
+                            );
+                          })}
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pb-2 md:pb-4">
                       <Label className="line-clamp-3 text-xs md:line-clamp-none md:text-sm">
-                        It`s the story of the intricate and bloody battles of
-                        several noble families in the fictional land of
-                        Westeros. These families, including the Starks, the
-                        Lannisters, and the Targaryens, fight for control of the
-                        Iron Throne, the symbol of power in the Seven Kingdoms.
+                        {truncatedDescription}
                       </Label>
                     </CardContent>
                     <CardFooter className="flex gap-2 pt-0 md:gap-3">

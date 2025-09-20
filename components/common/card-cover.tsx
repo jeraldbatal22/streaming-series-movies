@@ -14,7 +14,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 interface CardCoverPropTypes {
   coverImageUrl: string;
   title: string;
-  genres: string;
+  genres: string[];
   description?: string;
   rating?: number;
   isFavorite?: boolean;
@@ -63,6 +63,7 @@ const CardCover = React.memo<CardCoverPropTypes>(
     }, []);
 
     const handleCardClick = useCallback(() => {
+      console.log('first');
       onClick?.();
     }, [onClick]);
 
@@ -77,7 +78,7 @@ const CardCover = React.memo<CardCoverPropTypes>(
     return (
       <div
         className={cn(
-          'group xs:h-44 relative h-40 cursor-pointer border-10 border-gray-800 transition-all duration-300 ease-in-out sm:h-48 md:h-52 lg:h-[246px]',
+          'group relative h-52 cursor-pointer border-10 border-gray-800 transition-all duration-300 ease-in-out sm:h-48 lg:h-[246px]',
           'hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20',
           'focus-within:ring-primary-500 focus-within:ring-2 focus-within:ring-offset-2',
           'touch-manipulation active:scale-[0.98]', // Better mobile touch feedback
@@ -156,7 +157,7 @@ const CardCover = React.memo<CardCoverPropTypes>(
           {isHovered && (
             <CardContent className="z-10 flex flex-1 items-center justify-center p-0">
               <div className="text-center">
-                <Label className="px-1 text-[10px] leading-relaxed text-white sm:px-2 sm:text-xs">
+                <Label className="cursor-pointer px-1 text-[10px] leading-relaxed text-white sm:px-2 sm:text-xs">
                   {displayDescription}
                 </Label>
               </div>
@@ -166,11 +167,16 @@ const CardCover = React.memo<CardCoverPropTypes>(
           {/* Footer with Title and Genres */}
           <CardFooter className="z-10 p-2 backdrop-blur-sm sm:p-3">
             <div className="w-full space-y-0.5 text-center sm:space-y-1">
-              <Label className="line-clamp-1 block text-xs font-semibold text-white sm:text-sm">
+              <Label className="line-clamp-1 block cursor-pointer text-xs font-semibold text-white sm:text-sm">
                 {title}
               </Label>
-              <Label className="line-clamp-1 block text-[10px] text-gray-300 sm:text-xs">
-                {genres}
+              <Label className="line-clamp-1 block cursor-pointer text-[10px] text-gray-300 sm:text-xs">
+                {genres.map((genre, idx) => (
+                  <span key={genre}>
+                    {genre}
+                    {idx < genres.length - 1 && ', '}
+                  </span>
+                ))}
               </Label>
             </div>
           </CardFooter>

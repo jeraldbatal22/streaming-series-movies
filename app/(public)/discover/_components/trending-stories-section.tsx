@@ -7,9 +7,14 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import CardCover from '@/components/common/card-cover';
-import RECOMMENDED_MOCK_DATA from '@/mock/recommended-data';
+import { tmdbService } from '@/lib/api/tmdb';
+import { I_MOVIE } from '@/lib/api/types';
 
-const TrendingStoriesSection = () => {
+interface TrendingStoriesSectionProps {
+  data: I_MOVIE[];
+}
+
+const TrendingStoriesSection = ({ data }: TrendingStoriesSectionProps) => {
   return (
     <div>
       <h1 className="md:text-title-sm py-3 text-sm md:py-5">
@@ -17,14 +22,14 @@ const TrendingStoriesSection = () => {
       </h1>
       <Carousel>
         <CarouselContent>
-          {RECOMMENDED_MOCK_DATA.map((data) => {
+          {data.map((item: any) => {
             return (
-              <Fragment key={data.id}>
+              <Fragment key={item.id}>
                 <CarouselItem className="basis-2/4 md:basis-1/7">
                   <CardCover
-                    coverImageUrl={data.coverImageUrl}
-                    title="Greedy People"
-                    genres="Crime, Comedy"
+                    coverImageUrl={tmdbService.getImageUrl(item.poster_path, 'w500')}
+                    title={item.title}
+                    genres={item.genre_names}
                   />
                 </CarouselItem>
               </Fragment>
