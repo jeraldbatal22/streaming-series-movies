@@ -52,9 +52,10 @@ const AppSidebar = () => {
   const [activeMenu, setActiveMenu] = useState(pathname);
   const { toggleSidebar, open } = useSidebar();
 
-  const handleNavigateMenu = (selectedMenu: any) => {
-    setActiveMenu(selectedMenu.to);
-    router.push(selectedMenu.to);
+  const handleNavigateMenu = (e: any, selectedMenu: any) => {
+    e.preventDefault();
+    router.push(selectedMenu.url);
+    setActiveMenu(selectedMenu.url);
   };
 
   return (
@@ -127,7 +128,7 @@ const AppSidebar = () => {
                   >
                     <Link
                       href=""
-                      onClick={() => handleNavigateMenu(item)}
+                      onClick={(e) => handleNavigateMenu(e, item)}
                       className={cn(
                         'hover:text-primary-500 gap-3 px-5 py-2 text-[1.2rem] transition-colors',
                         activeMenu === item.url

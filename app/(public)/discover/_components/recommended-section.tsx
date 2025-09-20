@@ -27,6 +27,7 @@ const RecommendedSection = ({ data }: RecommendedSectionProps) => {
               <Fragment key={item.id}>
                 <CarouselItem className="basis-2/4 md:basis-1/5">
                   <CardCover
+                    id={item.id}
                     coverImageUrl={tmdbService.getImageUrl(item.poster_path, 'w500')}
                     title={item.title}
                     genres={item.genre_names}

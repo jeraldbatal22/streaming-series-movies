@@ -27,6 +27,7 @@ const TrendingStoriesSection = ({ data }: TrendingStoriesSectionProps) => {
               <Fragment key={item.id}>
                 <CarouselItem className="basis-2/4 md:basis-1/7">
                   <CardCover
+                    id={item.id}
                     coverImageUrl={tmdbService.getImageUrl(item.poster_path, 'w500')}
                     title={item.title}
                     genres={item.genre_names}

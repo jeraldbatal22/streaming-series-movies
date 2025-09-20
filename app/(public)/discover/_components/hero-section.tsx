@@ -22,12 +22,14 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { tmdbService } from '@/lib/api/tmdb';
 import { I_MOVIE } from '@/lib/api/types';
+import { useRouter } from 'next/navigation';
 
 interface HeroSectionProps {
   data: I_MOVIE[];
 }
 
 const HeroSection = ({ data }: HeroSectionProps) => {
+  const router = useRouter();
   const plugin = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   return (
@@ -95,6 +97,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
                     <CardFooter className="flex gap-2 pt-0 md:gap-3">
                       <CardAction>
                         <Button
+                          onClick={() => router.push(`/movies/${item.id}`)}
                           variant="ghost"
                           className="hover:bg-primary-100 bg-primary-500 h-[32px] w-[100px] text-xs text-black md:h-[36px] md:w-[143px] md:text-sm"
                         >

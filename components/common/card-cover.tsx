@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { HeartIcon, Star } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React, { useState, useCallback, useMemo } from 'react';
 
 interface CardCoverPropTypes {
@@ -21,10 +22,12 @@ interface CardCoverPropTypes {
   onFavoriteToggle?: () => void;
   onClick?: () => void;
   className?: string;
+  id: string;
 }
 
 const CardCover = React.memo<CardCoverPropTypes>(
   ({
+    id,
     coverImageUrl,
     title,
     genres,
@@ -36,7 +39,7 @@ const CardCover = React.memo<CardCoverPropTypes>(
     className,
   }) => {
     const [isHovered, setIsHovered] = useState(false);
-
+    const router = useRouter();
     // Memoize computed values
     const displayDescription = useMemo(() => {
       if (!description) return '';
@@ -63,9 +66,12 @@ const CardCover = React.memo<CardCoverPropTypes>(
     }, []);
 
     const handleCardClick = useCallback(() => {
-      console.log('first');
-      onClick?.();
-    }, [onClick]);
+      if (onClick) {
+        return onClick?.();
+      } else {
+        router.push(`/movies/${id}`)
+      }
+    }, [onClick, id]);
 
     const handleFavoriteClick = useCallback(
       (e: React.MouseEvent) => {

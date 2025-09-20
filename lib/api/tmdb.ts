@@ -135,7 +135,7 @@ class TMDBService {
     };
   }
 
-  async getMovieDetails(movieId: number): Promise<I_MOVIE_DETAILS> {
+  async getMovieDetails(movieId: number | string): Promise<I_MOVIE_DETAILS> {
     const url = this.buildUrl(`${API_ENDPOINTS.MOVIE.DETAILS}/${movieId}`);
     return this.fetchWithErrorHandling<I_MOVIE_DETAILS>(url, {
       next: { 
