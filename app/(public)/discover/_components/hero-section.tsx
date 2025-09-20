@@ -54,7 +54,8 @@ const HeroSection = ({ data }: HeroSectionProps) => {
               <CarouselItem className="basis-2/2">
                 <div
                   className={cn(
-                    'relative h-64 overflow-hidden rounded-2xl bg-[#5352528e] md:h-[391px]'
+                    // "bg-[#5352528e]",
+                    'relative h-64 overflow-hidden rounded-2xl md:h-[391px]'
                   )}
                 >
                   {/* Background Image */}
@@ -63,7 +64,7 @@ const HeroSection = ({ data }: HeroSectionProps) => {
                     alt={item.title}
                     fill
                     className={cn(
-                      'object-fill transition-all duration-300 ease-in-out'
+                      'object-contain transition-all duration-300 ease-in-out rounded-2xl'
                     )}
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, 100vw"
                     priority={false}

@@ -85,7 +85,7 @@ const CardCover = React.memo<CardCoverPropTypes>(
     return (
       <div
         className={cn(
-          'group relative h-52 cursor-pointer border-10 border-gray-800 transition-all duration-300 ease-in-out sm:h-48 lg:h-[246px]',
+          'group relative h-52 cursor-pointer rounded-md border-10 border-gray-800 transition-all duration-300 ease-in-out sm:h-48 lg:h-[246px]',
           'hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20',
           'focus-within:ring-primary-500 focus-within:ring-2 focus-within:ring-offset-2',
           'touch-manipulation active:scale-[0.98]', // Better mobile touch feedback
