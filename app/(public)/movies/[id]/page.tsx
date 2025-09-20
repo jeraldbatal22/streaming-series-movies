@@ -12,7 +12,9 @@ interface MovieDetailsPageProps {
   params: { id: string };
 }
 
-export async function generateMetadata({ params }: MovieDetailsPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: MovieDetailsPageProps): Promise<Metadata> {
   const movieId = (await params).id;
 
   if (!movieId) {
@@ -24,24 +26,31 @@ export async function generateMetadata({ params }: MovieDetailsPageProps): Promi
 
   try {
     const movieDetails = await tmdbService.getMovieDetails(movieId as string);
-    
+
     return {
       title: `${movieDetails.title} - Movie Details`,
-      description: movieDetails.overview || `Watch ${movieDetails.title} - ${movieDetails.genres.map(g => g.name).join(', ')}`,
+      description:
+        movieDetails.overview ||
+        `Watch ${movieDetails.title} - ${movieDetails.genres.map((g) => g.name).join(', ')}`,
       openGraph: {
         title: movieDetails.title,
         description: movieDetails.overview || `Watch ${movieDetails.title}`,
-        images: movieDetails.backdrop_path ? [tmdbService.getBackdropUrl(movieDetails.backdrop_path, 'w780')] : [],
+        images: movieDetails.backdrop_path
+          ? [tmdbService.getBackdropUrl(movieDetails.backdrop_path, 'w780')]
+          : [],
         type: 'video.movie',
       },
       twitter: {
         card: 'summary_large_image',
         title: movieDetails.title,
         description: movieDetails.overview || `Watch ${movieDetails.title}`,
-        images: movieDetails.backdrop_path ? [tmdbService.getBackdropUrl(movieDetails.backdrop_path, 'w780')] : [],
+        images: movieDetails.backdrop_path
+          ? [tmdbService.getBackdropUrl(movieDetails.backdrop_path, 'w780')]
+          : [],
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       title: 'Movie Not Found',
       description: 'The movie you are looking for does not exist.',
@@ -57,7 +66,7 @@ async function MovieDetailsPage({ params }: MovieDetailsPageProps) {
   }
 
   let movieDetails: I_MOVIE_DETAILS;
-  
+
   try {
     movieDetails = await tmdbService.getMovieDetails(movieId);
   } catch (error) {
@@ -72,6 +81,6 @@ async function MovieDetailsPage({ params }: MovieDetailsPageProps) {
       </Suspense>
     </MainLayout>
   );
-};
+}
 
 export default MovieDetailsPage;
