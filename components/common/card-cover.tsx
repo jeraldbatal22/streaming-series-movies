@@ -69,8 +69,9 @@ const CardCover = React.memo<CardCoverPropTypes>(
       if (onClick) {
         return onClick?.();
       } else {
-        router.push(`/movies/${id}`)
+        router.push(`/movies/${id}`);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onClick, id]);
 
     const handleFavoriteClick = useCallback(

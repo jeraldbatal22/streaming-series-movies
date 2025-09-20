@@ -1,28 +1,9 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import Image from 'next/image';
-import {
-  PlayIcon,
-  StarIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ThumbsUpIcon,
-  ThumbsDownIcon,
-  MessageSquareIcon,
-  FlagIcon,
-} from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { tmdbService } from '@/lib/api/tmdb';
 import { I_MOVIE_DETAILS } from '@/lib/api/types';
-import { cn } from '@/lib/utils';
 import MainLayout from '@/components/common/layout';
 import MovieDetailsSkeleton from '@/components/common/movie-details-skeleton';
 import MovieDetails from './_components/movie-details';

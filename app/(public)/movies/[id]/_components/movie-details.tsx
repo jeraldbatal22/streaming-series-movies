@@ -3,10 +3,7 @@
 import { Fragment, useState } from 'react';
 import Image from 'next/image';
 import {
-  PlayIcon,
-  StarIcon,
   ChevronDownIcon,
-  ChevronLeftIcon,
   ChevronRightIcon,
   ThumbsUpIcon,
   ThumbsDownIcon,
