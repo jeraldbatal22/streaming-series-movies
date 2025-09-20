@@ -1,7 +1,6 @@
 import { TMDB_CONFIG, API_ENDPOINTS, CACHE_CONFIG } from './config';
 import { 
   I_MOVIE, 
-  I_GENRE, 
   I_TMDB_RESPONSE, 
   I_GENRE_RESPONSE, 
   I_API_ERROR, 

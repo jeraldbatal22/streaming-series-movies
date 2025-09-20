@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import MainLayout from '@/components/common/layout';
 import ErrorBoundary from '@/components/common/error-boundary';
-import { DiscoverPageSkeleton } from '@/components/common/loading-skeleton';
 import {
   HeroSection,
   RecommendedSection,
@@ -12,6 +11,10 @@ import {
 } from './_components';
 import { tmdbService } from '@/lib/api/tmdb';
 import { I_DISCOVER_PAGE_DATA } from '@/lib/api/types';
+import {
+  HeroSectionSkeleton,
+  SectionSkeleton,
+} from '@/components/common/loading-skeleton';
 
 // Data fetching function
 async function getDiscoverPageData(): Promise<I_DISCOVER_PAGE_DATA> {
@@ -33,7 +36,7 @@ const DiscoverPage = async () => {
     // If data fetching fails, we'll let the error boundary handle it
     throw error;
   }
-  console.log(data)
+
   return (
     <MainLayout>
       <div className="space-y-5 pb-20">
@@ -41,29 +44,14 @@ const DiscoverPage = async () => {
           <div className="w-full md:w-7xl">
             {/* HERO SECTION */}
             <ErrorBoundary>
-              <Suspense
-                fallback={
-                  <div className="mb-8 h-64 animate-pulse rounded-2xl bg-gray-200 md:h-[391px]" />
-                }
-              >
+              <Suspense fallback={<HeroSectionSkeleton />}>
                 <HeroSection data={data.topRatedMovies} />
               </Suspense>
             </ErrorBoundary>
 
             {/* RECOMMENDED SECTION */}
             <ErrorBoundary>
-              <Suspense
-                fallback={
-                  <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="mb-8 h-64 animate-pulse rounded-lg bg-gray-200"
-                      />
-                    ))}
-                  </div>
-                }
-              >
+              <Suspense fallback={<SectionSkeleton />}>
                 <RecommendedSection data={data.popularMovies} />
               </Suspense>
             </ErrorBoundary>
@@ -72,16 +60,7 @@ const DiscoverPage = async () => {
           {/* HOT NEWS SECTION */}
           <ErrorBoundary>
             <Suspense
-              fallback={
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
-                  {[...Array(1)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="mb-8 h-64 animate-pulse rounded-lg bg-gray-200"
-                    />
-                  ))}
-                </div>
-              }
+              fallback={<></>}
             >
               <HotNewsSection />
             </Suspense>
@@ -91,16 +70,7 @@ const DiscoverPage = async () => {
         {/* TRENDING MOVIES SECTION */}
         <ErrorBoundary>
           <Suspense
-            fallback={
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="mb-8 h-64 animate-pulse rounded-lg bg-gray-200"
-                  />
-                ))}
-              </div>
-            }
+            fallback={<SectionSkeleton />}
           >
             <TrendingMoviesSection data={data.topRatedMovies} />
           </Suspense>
@@ -109,16 +79,7 @@ const DiscoverPage = async () => {
         {/* LATEST TRAILER BANNER SECTION */}
         <ErrorBoundary>
           <Suspense
-            fallback={
-              <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
-                {[...Array(5)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="mb-8 h-64 animate-pulse rounded-lg bg-gray-200"
-                  />
-                ))}
-              </div>
-            }
+            fallback={<SectionSkeleton />}
           >
             <LatestTrailerBanner />
           </Suspense>

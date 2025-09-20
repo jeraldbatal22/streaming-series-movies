@@ -29,7 +29,7 @@ export const HeroSectionSkeleton = () => (
   </div>
 );
 
-export const SectionSkeleton = ({ title }: { title: string }) => (
+export const SectionSkeleton = () => (
   <div className="space-y-4">
     <Skeleton className="h-6 w-48" />
     <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
@@ -47,14 +47,14 @@ export const DiscoverPageSkeleton = () => (
         <div className="mb-8">
           <HeroSectionSkeleton />
         </div>
-        <SectionSkeleton title="Recommended for You" />
+        <SectionSkeleton />
       </div>
       <div className="hidden md:block">
         <Skeleton className="h-96 w-64 rounded-lg" />
       </div>
     </div>
-    <SectionSkeleton title="Trending Movies" />
+    <SectionSkeleton/>
     <Skeleton className="h-32 w-full rounded-lg" />
-    <SectionSkeleton title="Trending Stories" />
+    <SectionSkeleton />
   </div>
 );
